@@ -160,7 +160,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${javadocPluginVersion}</version>
                     <configuration>
-                        <source>7</source>
+                        <source>8</source>
                     </configuration>
                 </plugin>
                 <!-- End JDK11 fix-->
@@ -206,6 +206,12 @@
     </reporting>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <scope>provided</scope>
+        </dependency>
         <!--HttpClient 4.5 requires Java 1.5 or newer. -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

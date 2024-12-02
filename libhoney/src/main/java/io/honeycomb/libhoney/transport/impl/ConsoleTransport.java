@@ -1,6 +1,7 @@
 package io.honeycomb.libhoney.transport.impl;
 
 
+import io.honeycomb.libhoney.Marker;
 import io.honeycomb.libhoney.Metrics;
 import io.honeycomb.libhoney.eventdata.ResolvedEvent;
 import io.honeycomb.libhoney.responses.ClientRejected;
@@ -25,6 +26,11 @@ public class ConsoleTransport implements Transport {
         LOG.info("Submitting event to dead-end: {}", event);
         observable.publish(new ConsoleTransportDeadEnd(event));
         return true;
+    }
+
+    @Override
+    public boolean submit(Marker marker) {
+        return false;
     }
 
     @Override

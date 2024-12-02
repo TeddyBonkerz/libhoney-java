@@ -3,6 +3,8 @@ package io.honeycomb.libhoney.examples;
 import io.honeycomb.libhoney.EventFactory;
 import io.honeycomb.libhoney.HoneyClient;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -18,20 +20,21 @@ public class UsingEventFactory {
         globalDataMap.put("appProperty", System.getProperty("app.property"));
 
         return create(options()
-            .setWriteKey("myTeamWriteKey")
-            .setDataset("Cluster Dataset")
+            .setWriteKey("EQJ7cfhlof7O5P4DiP6KGN")
+            .setDataset("MyCodeExerciseDataset")
             .setGlobalFields(globalDataMap)
             .setSampleRate(globalSampleRate)
             .build()
         );
     }
 
-    public static void main(String... args) {
+    public static void main(String... args) throws URISyntaxException {
         try (HoneyClient honeyClient = initializeGlobalClient()) {
             UserService service = new UserService(honeyClient);
-            service.sendEvent("Bob");
-            service.sendEvent("Alice");
-            service.sendEvent("Kevin");
+            service.sendEvent("nile");
+            service.sendEvent("Drap");
+            service.sendEvent("kewl");
+            service.sendMarker(honeyClient);
         }
     }
 
@@ -52,6 +55,24 @@ public class UsingEventFactory {
                 .addField("userName", username)
                 .addField("userId", UUID.randomUUID().toString())
                 .setTimestamp(System.currentTimeMillis())
+                .send();
+        }
+
+        void sendMarker(HoneyClient honeyClient) throws URISyntaxException {
+//            honeyClient.createMarker()
+//                .addField("start_time", System.currentTimeMillis() - 1L)
+//                .addField("end_time", System.currentTimeMillis())
+//                .addField("message", "hey")
+//                .addField("type", "deploy")
+//                .addField("url", "https://marker.com")
+            localBuilder
+                .createEvent()
+                .setApiHost(new URI("https://api.honeycomb.io/1/markers"))
+                .addField("start_time", System.currentTimeMillis() - 1L)
+                .addField("end_time", System.currentTimeMillis())
+                .addField("message", "hey")
+                .addField("type", "deploy")
+                .addField("url", "https://marker.com")
                 .send();
         }
     }

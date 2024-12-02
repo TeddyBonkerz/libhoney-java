@@ -95,6 +95,7 @@ public class HoneyClient implements AutoCloseable {
 
     private final Transport transport;
     private final EventFactory globalEventFactory;
+    private final MarkerFactory markerFactory;
     private final Random sampler;
     private final EventPostProcessor postProcessor;
     private final ClockProvider clock;
@@ -139,6 +140,7 @@ public class HoneyClient implements AutoCloseable {
      * @param clock     used to override the clock for testing
      */
     public HoneyClient(final Options options, final Transport transport, final ClockProvider clock) {
+        this.markerFactory = new MarkerFactory(this, options);
         this.sampler = new Random();
         this.transport = transport;
         this.globalEventFactory = new EventFactory(this, options);
@@ -287,6 +289,20 @@ public class HoneyClient implements AutoCloseable {
         globalEventFactory.send(fields);
     }
 
+    void sendMarker(final Marker marker) {
+        if (marker != null) {
+            final boolean submitted = transport.submit(marker);
+            LOG.debug("Marker sent", marker);
+//            if (!submitted) {
+//                LOG.debug("Resolved marker rejected due to queue overflow: {}", marker);
+//                transport.getResponseObservable().publish(MarkerResponseFactory.queueOverflow(marker));
+//            }
+        }
+    }
+
+    public Marker createMarker() {
+        return markerFactory.createMarker();
+    }
     /**
      * Add an observer that gets notified about the outcome of every event sent through this client.
      *
