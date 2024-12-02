@@ -60,7 +60,7 @@
         <dependency.locations.enabled>false</dependency.locations.enabled>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jdkVersion>1.7</jdkVersion>
+        <jdkVersion>1.8</jdkVersion>
 
         <!-- COMPILE dependency versions -->
         <apacheClientVersion>4.1.5</apacheClientVersion>

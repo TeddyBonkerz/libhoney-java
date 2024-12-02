@@ -1,5 +1,6 @@
 package io.honeycomb.libhoney.transport;
 
+import io.honeycomb.libhoney.Marker;
 import io.honeycomb.libhoney.eventdata.ResolvedEvent;
 import io.honeycomb.libhoney.responses.ResponseObservable;
 
@@ -17,6 +18,7 @@ public interface Transport extends AutoCloseable {
      */
     boolean submit(ResolvedEvent event);
 
+    boolean submit(Marker marker);
     /**
      * Get the {@link ResponseObservable} that is linked to this Transport. Can be used to register an
      * {@link io.honeycomb.libhoney.ResponseObserver} for inspection of the event responses.

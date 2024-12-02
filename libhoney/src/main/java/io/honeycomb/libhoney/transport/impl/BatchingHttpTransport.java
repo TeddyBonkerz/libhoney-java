@@ -1,5 +1,6 @@
 package io.honeycomb.libhoney.transport.impl;
 
+import io.honeycomb.libhoney.Marker;
 import io.honeycomb.libhoney.TransportOptions;
 import io.honeycomb.libhoney.eventdata.ResolvedEvent;
 import io.honeycomb.libhoney.responses.ResponseObservable;
@@ -47,6 +48,11 @@ public class BatchingHttpTransport implements Transport {
     public boolean submit(final ResolvedEvent event) {
         event.markEnqueueTime();
         return batcher.offerEvent(event);
+    }
+
+    @Override
+    public boolean submit(Marker marker) {
+        return false;
     }
 
     @Override

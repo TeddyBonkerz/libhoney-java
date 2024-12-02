@@ -25,17 +25,17 @@ public class Marker {
         this.fields = fields;
     }
 
-    Marker addField(String fieldKey, Object fieldValue) {
+    public Marker addField(String fieldKey, Object fieldValue) {
         this.fields.put(fieldKey, fieldValue);
         return this;
     }
 
-    Marker addFields(final Map<String, ?> fields) {
+    public Marker addFields(final Map<String, ?> fields) {
         this.fields.putAll(fields);
         return this;
     }
 
-    void send() {
+    public void send() {
         this.client.sendMarker(this);
     }
 }
